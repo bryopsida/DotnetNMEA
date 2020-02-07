@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="CommandLineParser" Version="2.7.82" />
+      <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="3.1.1" />
+      <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.1" />
+      <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.1" />
+      <PackageReference Include="NLog" Version="4.6.8" />
+      <PackageReference Include="NLog.Extensions.Logging" Version="1.6.1" />
+      <PackageReference Include="System.IO.Ports" Version="4.7.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\nmea0183\nmea0183.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="nlog.config" />
+      <Content Include="nlog.config">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+    </ItemGroup>
+
+</Project>
