@@ -1,24 +1,19 @@
 version: 2.1
-
-orbs:
-  win: circleci/windows@1.0.0
-
 jobs:
   build:
-    executor:
-      name: win/vs2019
-      shell: powershell.exe
+    docker:
+      - image: mcr.microsoft.com/dotnet/core/sdk:3.1-alpine
     steps:
       - checkout
       - run:
           name: restore packages
-          command: dotnet.exe restore
+          command: dotnet restore
       - run:
           name: build
-          command: dotnet.exe build
+          command: dotnet build
       - run:
           name: run unit tests
-          command: dotnet.exe test
+          command: dotnet test
 
       
 
