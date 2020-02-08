@@ -6,18 +6,39 @@ using Microsoft.Extensions.Logging;
 
 namespace DotnetNMEA.NMEA0183.Messages
 {
+    /// <summary>
+    /// Base NMEA0183 Message
+    /// </summary>
     [MessagePackObject]
     public abstract class Nmea0183Message
     {
+        /// <summary>
+        /// Type of message
+        /// </summary>
         [Key(0)]
         public MessageType Type;
+        /// <summary>
+        /// Speaker, what system sent the message
+        /// </summary>
         [Key(1)]
         public SpeakerType Speaker;
 
+        /// <summary>
+        /// How many fields are expected to be in the nmea sentence, this is set in child classes
+        /// </summary>
         protected int ExpectedFieldCount;
+        /// <summary>
+        /// Logger used to log information to a configurable destination set when the logger is created
+        /// </summary>
         protected ILogger _logger;
         
 
+        /// <summary>
+        /// Set the message type, speaker type, and create the logger instance
+        /// </summary>
+        /// <param name="sType">Speaker</param>
+        /// <param name="mType">Message Type</param>
+        /// <param name="factory">Logger Factory</param>
         protected Nmea0183Message(SpeakerType sType, MessageType mType, ILoggerFactory factory)
         {
             Type = mType;
@@ -41,6 +62,10 @@ namespace DotnetNMEA.NMEA0183.Messages
             for (int i = 0; i <= ExpectedFieldCount && !done; i++)
             {
                 var idx = workingSlice.IndexOf(',');
+                if (idx == -1)
+                {
+                    idx = workingSlice.IndexOf('*');
+                }
                 done = idx == -1;
                 if (!done && workingSlice.Length > 0)
                 {
@@ -59,6 +84,12 @@ namespace DotnetNMEA.NMEA0183.Messages
             }
         }
 
+        /// <summary>
+        /// Convert latitude/longitude from degrees minutes, seconds format to decimal
+        /// degrees format with set decimal precision to 6 digits after the decimal point by rounding
+        /// </summary>
+        /// <param name="slice">the substring of the valu</param>
+        /// <returns>decimal degrees</returns>
         protected decimal? GetDecimalDegrees(ReadOnlySpan<char> slice)
         {
             var idx = slice.IndexOf('.');
@@ -92,6 +123,11 @@ namespace DotnetNMEA.NMEA0183.Messages
             }
         }
 
+        /// <summary>
+        /// Converts string to nullable integer using try parse logic
+        /// </summary>
+        /// <param name="slice">the sub string value</param>
+        /// <returns>integer value</returns>
         protected int? GetInteger(ReadOnlySpan<char> slice)
         {
             if (!int.TryParse(slice.ToString(), out var result))
@@ -104,6 +140,28 @@ namespace DotnetNMEA.NMEA0183.Messages
             }
         }
 
+        /// <summary>
+        /// Convert the sub string to the enum ActiveStatus
+        /// </summary>
+        /// <param name="slice">sub string value</param>
+        /// <returns>ActiveStatus</returns>
+        protected ActiveStatus GetActiveStatus(ReadOnlySpan<char> slice)
+        {
+            switch (slice[0])
+            {
+                case 'A':
+                    return ActiveStatus.Active;
+                case 'V':
+                    return ActiveStatus.Void;
+                default:
+                    return ActiveStatus.Unknown;
+            }
+        }
+        /// <summary>
+        /// Get North Sourth enum from sub string value
+        /// </summary>
+        /// <param name="slice">sub string value</param>
+        /// <returns>NorthSouth</returns>
         protected NorthSouth GetNorthSouth(ReadOnlySpan<char> slice)
         {
             if (slice.Length == 0)
@@ -120,7 +178,12 @@ namespace DotnetNMEA.NMEA0183.Messages
                 return NorthSouth.South;
             }
         }
-
+        
+        /// <summary>
+        /// Gets the EastWest enum from the sub string
+        /// </summary>
+        /// <param name="slice">sub string value</param>
+        /// <returns>EastWest</returns>
         protected EastWest GetEastWest(ReadOnlySpan<char> slice)
         {
             if (slice.Length == 0)
@@ -136,11 +199,21 @@ namespace DotnetNMEA.NMEA0183.Messages
             return EastWest.East;
         }
 
+        /// <summary>
+        /// Convert Span value to string
+        /// </summary>
+        /// <param name="slice">sub string span</param>
+        /// <returns>string</returns>
         protected string GetString(ReadOnlySpan<char> slice)
         {
             return slice.ToString();
         }
 
+        /// <summary>
+        /// Convert the sub string to a nullable decimal
+        /// </summary>
+        /// <param name="slice">sub string value</param>
+        /// <returns>nullable decimal converted from string value</returns>
         protected decimal? GetDecimal(ReadOnlySpan<char> slice)
         {
             if (decimal.TryParse(slice.ToString(), out var result))
@@ -153,6 +226,11 @@ namespace DotnetNMEA.NMEA0183.Messages
             }
         }
 
+        /// <summary>
+        /// Get GPS Fix enum from string
+        /// </summary>
+        /// <param name="slice">sub string value</param>
+        /// <returns>GPSFix</returns>
         protected GPSFix GetGPSFix(ReadOnlySpan<char> slice)
         {
             if (slice[0] == '0')
@@ -168,6 +246,11 @@ namespace DotnetNMEA.NMEA0183.Messages
             return GPSFix.DGpsFix;
         }
 
+        /// <summary>
+        /// Convert a time value in the hhmmss.fff format into a timespan
+        /// </summary>
+        /// <param name="slice">substring value</param>
+        /// <returns>TimeSpan</returns>
         protected TimeSpan? GetTimeSpanFromHHMMSS(ReadOnlySpan<char> slice)
         {
             if (TimeSpan.TryParseExact(slice.ToString(), "hhmmss\\.fff", CultureInfo.InvariantCulture, out var result))
@@ -180,6 +263,11 @@ namespace DotnetNMEA.NMEA0183.Messages
             }
         }
 
+        /// <summary>
+        /// Get a double from the substring value
+        /// </summary>
+        /// <param name="slice">substring value</param>
+        /// <returns>converted value if successful null otherwise</returns>
         protected double? GetDouble(ReadOnlySpan<char> slice)
         {
             if (double.TryParse(slice.ToString(),  out var result))
@@ -192,11 +280,75 @@ namespace DotnetNMEA.NMEA0183.Messages
             }
         }
 
+        /// <summary>
+        /// Convert the character to the units enum
+        /// </summary>
+        /// <param name="slice">Sub string value</param>
+        /// <returns>Units</returns>
         protected Units GetUnits(ReadOnlySpan<char> slice)
         {
             return Units.Meters;
         }
 
+        /// <summary>
+        /// Get the fix mode
+        /// </summary>
+        /// <param name="slice">sub string value</param>
+        /// <returns>FixMode</returns>
+        protected FixMode GetFixMode(ReadOnlySpan<char> slice)
+        {
+            switch (slice[0])
+            {
+                case '2':
+                    return FixMode.Fix2D;
+                case '3':
+                    return FixMode.Fix3D;
+                default:
+                    return FixMode.NotAvailable;
+            }
+        }
+        
+        /// <summary>
+        /// Convert string into a SelectionMode enum
+        /// </summary>
+        /// <param name="slice">sub string value</param>
+        /// <returns>SelectionMode</returns>
+        protected SelectionMode GetSelectionMode(ReadOnlySpan<char> slice)
+        {
+            switch (slice[0])
+            {
+                case 'M':
+                    return SelectionMode.Manual;
+                case 'A':
+                    return SelectionMode.Automatic;
+                default:
+                    return SelectionMode.Unknown;
+            }
+        }
+
+        /// <summary>
+        /// Get a date time object with just the date from a string in the format of ddMMYY 
+        /// </summary>
+        /// <param name="val">substring value</param>
+        /// <returns>DateTime if it can be parsed, null otherwise</returns>
+        protected DateTime? GetDateTimeDDMMYY(ReadOnlySpan<char> val)
+        {
+            if (DateTime.TryParseExact(val.ToString(), "ddMMyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out var result))
+            {
+                return result;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Implemented in child classes. Child classes have the context of knowing the mapping
+        /// of index value to member value and type
+        /// </summary>
+        /// <param name="idx">index of the value in the nmea sentence</param>
+        /// <param name="val">raw value</param>
         protected abstract void SetIndexValue(int idx, ReadOnlySpan<char> val);
     }
 }

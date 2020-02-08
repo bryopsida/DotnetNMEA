@@ -1,29 +1,103 @@
 ﻿using System;
 using DotnetNMEA.NMEA0183.Types;
+using MessagePack;
 using Microsoft.Extensions.Logging;
 
 namespace DotnetNMEA.NMEA0183.Messages
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    [MessagePackObject]
     public class GSAMessage : Nmea0183Message
     {
-        public string SelectionMode;
-        public string Mode;
-        public string Sat1Id;
-        public string Sat2Id;
-        public string Sat3Id;
-        public string Sat4Id;
-        public string Sat5Id;
-        public string Sat6Id;
-        public string Sat7Id;
-        public string Sat8Id;
-        public string Sat9Id;
-        public string Sat10Id;
-        public string Sat11Id;
-        public string Sat12Id;
+        /// <summary>
+        /// 
+        /// </summary>
+        [Key(2)] 
+        public SelectionMode SelectionMode;
+        /// <summary>
+        /// 
+        /// </summary>
+        [Key(3)]
+        public FixMode Mode;
+        /// <summary>
+        /// 
+        /// </summary>
+        [Key(4)]
+        public int? Sat1Id;
+        /// <summary>
+        /// 
+        /// </summary>
+        [Key(5)]
+        public int?  Sat2Id;
+        /// <summary>
+        /// 
+        /// </summary>
+        [Key(6)]
+        public int?  Sat3Id;
+        /// <summary>
+        /// 
+        /// </summary>
+        [Key(7)]
+        public int?  Sat4Id;
+        /// <summary>
+        /// 
+        /// </summary>
+        [Key(8)]
+        public int?  Sat5Id;
+        /// <summary>
+        /// 
+        /// </summary>
+        [Key(9)]
+        public int?  Sat6Id;
+        /// <summary>
+        /// 
+        /// </summary>
+        [Key(10)]
+        public int?  Sat7Id;
+        /// <summary>
+        /// 
+        /// </summary>
+        [Key(11)]
+        public int?  Sat8Id;
+        /// <summary>
+        /// 
+        /// </summary>
+        [Key(12)]
+        public int?  Sat9Id;
+        /// <summary>
+        /// 
+        /// </summary>
+        [Key(13)]
+        public int?  Sat10Id;
+        /// <summary>
+        /// 
+        /// </summary>
+        [Key(14)]
+        public int?  Sat11Id;
+        /// <summary>
+        /// 
+        /// </summary>
+        [Key(15)]
+        public int?  Sat12Id;
+        /// <summary>
+        /// 
+        /// </summary>
+        [Key(16)]
         public double? PDOPMeters;
+        /// <summary>
+        /// 
+        /// </summary>
+        [Key(17)]
         public double? HDOPMeters;
+        /// <summary>
+        /// 
+        /// </summary>
+        [Key(18)]
         public double? VDOPMeters;
-        
+
+        /// <inheritdoc />
         public GSAMessage(
             ReadOnlySpan<char> message,
             MessageType messageType, 
@@ -34,51 +108,52 @@ namespace DotnetNMEA.NMEA0183.Messages
             ExtractFieldValues(message);
         }
 
+        /// <inheritdoc />
         protected override void SetIndexValue(int idx, ReadOnlySpan<char> val)
         {
             switch (idx)
             {
                 case 0:
-                    SelectionMode = GetString(val);
+                    SelectionMode = GetSelectionMode(val);
                     break;
                 case 1:
-                    Mode = GetString(val);
+                    Mode = GetFixMode(val);
                     break;
                 case 2:
-                    Sat1Id = GetString(val);
+                    Sat1Id = GetInteger(val);
                     break;
                 case 3:
-                    Sat2Id = GetString(val);
+                    Sat2Id = GetInteger(val);
                     break;
                 case 4:
-                    Sat3Id = GetString(val);
+                    Sat3Id = GetInteger(val);
                     break;
                 case 5:
-                    Sat4Id = GetString(val);
+                    Sat4Id = GetInteger(val);
                     break;
                 case 6:
-                    Sat5Id = GetString(val);
+                    Sat5Id = GetInteger(val);
                     break;
                 case 7:
-                    Sat6Id = GetString(val);
+                    Sat6Id = GetInteger(val);
                     break;
                 case 8:
-                    Sat7Id = GetString(val);
+                    Sat7Id = GetInteger(val);
                     break;
                 case 9:
-                    Sat8Id = GetString(val);
+                    Sat8Id = GetInteger(val);
                     break;
                 case 10:
-                    Sat9Id = GetString(val);
+                    Sat9Id = GetInteger(val);
                     break;
                 case 11:
-                    Sat10Id = GetString(val);
+                    Sat10Id = GetInteger(val);
                     break;
                 case 12:
-                    Sat11Id = GetString(val);
+                    Sat11Id = GetInteger(val);
                     break;
                 case 13:
-                    Sat12Id = GetString(val);
+                    Sat12Id = GetInteger(val);
                     break;
                 case 14:
                     PDOPMeters = GetDouble(val);

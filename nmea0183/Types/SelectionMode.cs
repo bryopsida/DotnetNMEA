@@ -1,21 +1,21 @@
 ﻿namespace DotnetNMEA.NMEA0183.Types
 {
     /// <summary>
-    /// GPS Fix
+    /// Selection Mode
     /// </summary>
-    public enum GPSFix
+    public enum SelectionMode
     {
         /// <summary>
-        /// Not fixed
+        /// Manual Selection
         /// </summary>
-        FixtNotAvailable,
+        Manual,
         /// <summary>
-        /// Has a GPS Fix
+        /// Automatic Selection
         /// </summary>
-        GpsFix,
+        Automatic,
         /// <summary>
-        /// Has Differential GPS Fix
+        /// Unknown
         /// </summary>
-        DGpsFix
+        Unknown
     }
 }

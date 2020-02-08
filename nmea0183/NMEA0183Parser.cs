@@ -6,16 +6,31 @@ using Microsoft.Extensions.Logging;
 
 namespace DotnetNMEA.NMEA0183
 {
+    /// <summary>
+    /// Simple parser for NMEA0183 sentences
+    /// </summary>
     public class NMEA0183Parser : INMEA0183Parser
     {
         private ILogger _logger;
         private ILoggerFactory _loggerFactory;
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="factory">logger factory used to create logger instances for this class and any instances
+        /// created beneath this instance
+        /// </param>
         public NMEA0183Parser(ILoggerFactory factory)
         {
             _logger = factory.CreateLogger<NMEA0183Parser>();
             _loggerFactory = factory;
         }
         
+        /// <summary>
+        /// Parse the NMEA0183 sentence into a NMEA message object
+        /// </summary>
+        /// <param name="messageString">the complete NMEA0183 sentence</param>
+        /// <returns>A NMEA message object with the data extracted so it's in a readily usable format</returns>
+        /// <exception cref="ArgumentException">Thrown if a bad sentence is passed in</exception>
         public Nmea0183Message Parse(ReadOnlySpan<char> messageString)
         {
             if (messageString == null)

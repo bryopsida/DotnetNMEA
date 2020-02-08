@@ -1,21 +1,22 @@
 ﻿namespace DotnetNMEA.NMEA0183.Types
 {
     /// <summary>
-    /// GPS Fix
+    /// GPS Fix Mode
     /// </summary>
-    public enum GPSFix
+    public enum FixMode
     {
         /// <summary>
-        /// Not fixed
+        /// Not available
         /// </summary>
-        FixtNotAvailable,
+        NotAvailable = 1,
         /// <summary>
-        /// Has a GPS Fix
+        /// 2d Fix
         /// </summary>
-        GpsFix,
+        Fix2D = 2,
         /// <summary>
-        /// Has Differential GPS Fix
+        /// 3d Fix
         /// </summary>
-        DGpsFix
+        Fix3D = 3
+        
     }
 }

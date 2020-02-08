@@ -1,30 +1,79 @@
 ﻿using System;
 using DotnetNMEA.NMEA0183.Types;
+using MessagePack;
 using Microsoft.Extensions.Logging;
 
 namespace DotnetNMEA.NMEA0183.Messages
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    [MessagePackObject]
     public class RMCMessage : Nmea0183Message
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        [Key(2)] 
         public TimeSpan? UTCTime;
+        /// <summary>
+        /// 
+        /// </summary>
+        [Key(3)] 
         public ActiveStatus ActiveStatus;
+        /// <summary>
+        /// 
+        /// </summary>
+        [Key(4)] 
         public decimal? Latitude;
+        /// <summary>
+        /// 
+        /// </summary>
+        [Key(5)] 
+        public NorthSouth NorthSouth;
+        /// <summary>
+        /// 
+        /// </summary>
+        [Key(6)] 
         public decimal? Longitude;
+        /// <summary>
+        /// 
+        /// </summary>
+        [Key(7)] 
+        public EastWest EastWest;
+        /// <summary>
+        /// 
+        /// </summary>
+        [Key(8)] 
         public decimal? Knots;
+        /// <summary>
+        /// 
+        /// </summary>
+        [Key(9)] 
         public decimal? TrackAngle;
+        /// <summary>
+        /// 
+        /// </summary>
+        [Key(10)] 
         public DateTime? Date;
+        /// <summary>
+        /// 
+        /// </summary>
+        [Key(11)] 
         public decimal? MagneticVariation;
 
+        /// <inheritdoc />
         public RMCMessage(
             ReadOnlySpan<char> message,
             MessageType messageType, 
             SpeakerType sType, 
             ILoggerFactory loggerFactory): base(sType, messageType, loggerFactory)
         {
-            ExpectedFieldCount = 8;
+            ExpectedFieldCount = 10;
             ExtractFieldValues(message);
         }
 
+        /// <inheritdoc />
         protected override void SetIndexValue(int idx, ReadOnlySpan<char> val)
         {
             switch (idx)
@@ -33,22 +82,30 @@ namespace DotnetNMEA.NMEA0183.Messages
                     UTCTime = GetTimeSpanFromHHMMSS(val);
                     break;
                 case 1:
+                    ActiveStatus = GetActiveStatus(val);
                     break;
                 case 2:
                     Latitude = GetDecimalDegrees(val);
                     break;
                 case 3:
-                    Longitude = GetDecimalDegrees(val);
+                    NorthSouth = GetNorthSouth(val);
                     break;
                 case 4:
-                    Knots = GetDecimal(val);
+                    Longitude = GetDecimalDegrees(val);
                     break;
                 case 5:
-                    TrackAngle = GetDecimal(val);
+                    EastWest = GetEastWest(val);
                     break;
                 case 6:
+                    Knots = GetDecimal(val);
                     break;
                 case 7:
+                    TrackAngle = GetDecimal(val);
+                    break;
+                case 8:
+                    Date = GetDateTimeDDMMYY(val);
+                    break;
+                case 9:
                     MagneticVariation = GetDecimal(val);
                     break;
             }

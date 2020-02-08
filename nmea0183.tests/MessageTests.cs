@@ -9,10 +9,34 @@ namespace DotnetNMEA.NMEA0183.tests
 {
     public class MessageTests
     {
-        [Fact(Skip = "Not Implemented")]
+        [Fact]
         public void CanParseRMCMessage()
         {
-            Assert.True(false);
+            var moqLogger = new Mock<ILoggerFactory>();
+            INMEA0183Parser parser = new NMEA0183Parser(moqLogger.Object);
+
+            ReadOnlySpan<char> firstMessage = 
+                "$GPRMC,215236.000,A,2006.5938,N,09844.6060,W,0.38,343.75,150919,,,A*70";
+            RMCMessage mess = parser.Parse(firstMessage) as RMCMessage;
+            
+            Assert.NotNull(mess);
+            Assert.Equal(ActiveStatus.Active, mess.ActiveStatus);
+            Assert.Equal(new decimal(0.38), mess.Knots);
+            Assert.Equal(new decimal(343.75), mess.TrackAngle);
+            Assert.Equal(NorthSouth.North, NorthSouth.North);
+            Assert.Equal(EastWest.West, EastWest.West);
+
+            var ts = new TimeSpan(21, 52, 36);
+            Assert.Equal(ts, mess.UTCTime);
+            Assert.Equal(new decimal(21.749444), mess.Latitude);
+            Assert.Equal(new decimal(100.416667), mess.Longitude);
+            Assert.Equal(NorthSouth.North, mess.NorthSouth);
+            Assert.Equal(EastWest.West, mess.EastWest);
+
+            var date = new DateTime(2019, 9, 15);
+            Assert.Equal(date, mess.Date);
+            Assert.Null(mess.MagneticVariation);
+
         }
         
         [Fact]
@@ -47,17 +71,50 @@ namespace DotnetNMEA.NMEA0183.tests
 
         }
         
-        [Fact(Skip = "Not Implemented")]
+        [Fact]
         public void CanParseGSAMessage()
         {
-            Assert.True(false);
+            var moqLogger = new Mock<ILoggerFactory>();
+            INMEA0183Parser parser = new NMEA0183Parser(moqLogger.Object);
+
+            ReadOnlySpan<char> firstMessage = 
+                "$GPGSA,M,3,21,32,24,15,,,,,,,,,4.9,3.8,3.2*39";
+            GSAMessage mess = parser.Parse(firstMessage) as GSAMessage;
+            
+            Assert.NotNull(mess);
+            Assert.Equal(SelectionMode.Manual, mess.SelectionMode);
+            Assert.Equal(FixMode.Fix3D, mess.Mode);
+            Assert.Equal(21, mess.Sat1Id);
+            Assert.Equal(32, mess.Sat2Id);
+            Assert.Equal(24, mess.Sat3Id);
+            Assert.Equal(15, mess.Sat4Id);
+            Assert.Null(mess.Sat5Id);
+            Assert.Null(mess.Sat6Id);
+            Assert.Null(mess.Sat7Id);
+            Assert.Null(mess.Sat8Id);
+            Assert.Null(mess.Sat9Id);
+            Assert.Null(mess.Sat10Id);
+            Assert.Null(mess.Sat11Id);
+            Assert.Null(mess.Sat12Id);
+            Assert.Equal(4.9, mess.PDOPMeters);
+            Assert.Equal(3.8, mess.HDOPMeters);
+            Assert.Equal(3.2, mess.VDOPMeters);
         }
         
         
-        [Fact(Skip = "Not Implemented")]
+        [Fact]
         public void CanParseGSVMessage()
         {
-            Assert.True(false);
+            var moqLogger = new Mock<ILoggerFactory>();
+            INMEA0183Parser parser = new NMEA0183Parser(moqLogger.Object);
+
+            ReadOnlySpan<char> firstMessage = 
+                "$GPGSV,3,1,12,21,68,147,34,32,49,241,23,24,37,073,38,15,13,047,37*76";
+            GSVMessage mess = parser.Parse(firstMessage) as GSVMessage;
+            Assert.NotNull(mess);
+            Assert.Equal(3, mess.TotalMessages);
+            Assert.Equal(1, mess.MessageNumber);
+            Assert.Equal(12, mess.SatsInView);
         }
         
         [Fact(Skip = "Not Implemented")]
@@ -259,7 +316,7 @@ namespace DotnetNMEA.NMEA0183.tests
         }
         
         [Fact(Skip = "Not Implemented")]
-        public void CanParseMSKMessage()
+        public void CanParseMskMessage()
         {
             Assert.True(false);
         }

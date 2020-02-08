@@ -5,22 +5,54 @@ using System.Threading.Tasks;
 
 namespace DotnetNMEA
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public struct SerialSettings
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public string PortName;
+        /// <summary>
+        /// 
+        /// </summary>
         public int BaudRate;
+        /// <summary>
+        /// 
+        /// </summary>
         public Parity Parity;
+        /// <summary>
+        /// 
+        /// </summary>
         public int DataBits;
+        /// <summary>
+        /// 
+        /// </summary>
         public StopBits StopBits;
+        /// <summary>
+        /// 
+        /// </summary>
         public Handshake Handshake;
+        /// <summary>
+        /// 
+        /// </summary>
         public int ReadTimeout;
+        /// <summary>
+        /// 
+        /// </summary>
         public int WriteTimeout;
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public class SerialLineReader : INMEA0813Emitter
     {
-
-
+        
+        /// <summary>
+        /// 
+        /// </summary>
         public event NMEA0183LineDelegate OnLine;
 
         private SerialPort _serialPort;
@@ -28,6 +60,10 @@ namespace DotnetNMEA
         private CancellationTokenSource _cancelTokenSource;
         private EventWaitHandle _dataWaitHandle;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="settings"></param>
         public SerialLineReader(SerialSettings settings)
         {
             _cancelTokenSource = new CancellationTokenSource();
@@ -70,6 +106,9 @@ namespace DotnetNMEA
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void Dispose()
         {
             _serialPort?.Dispose();
