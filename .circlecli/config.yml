@@ -1,0 +1,24 @@
+version: 2.1
+
+orbs:
+  win: circleci/windows@1.0.0
+
+jobs:
+  build:
+    executor:
+      name: win/vs2019
+      shell: powershell.exe
+    steps:
+      - checkout
+      - run:
+          name: restore packages
+          command: dotnet.exe restore
+      - run:
+          name: build
+          command: dotnet.exe build
+      - test:
+          name: run unit tests
+          command: dotnet.exe test
+
+      
+
