@@ -5,7 +5,7 @@
  
 ## NMEA parsing library 
  
-## Support NMEA 0183 Sentences
+## Supported NMEA 0183 Sentences
 | Sentence Type        | Full Support           | Partial Support  |
 | ------------- |:-------------:| -----:|
 | GGA      | :heavy_check_mark:  |  |
