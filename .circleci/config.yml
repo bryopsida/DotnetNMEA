@@ -4,7 +4,7 @@ orbs:
 jobs:
   build:
     docker:
-      - image: mcr.microsoft.com/dotnet/core/sdk:3.1-alpine
+      - image: mcr.microsoft.com/dotnet/core/sdk:3.1-bionic
     steps:
       - checkout
       - run:
@@ -16,8 +16,9 @@ jobs:
       - run:
           name: run unit tests
           command: dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
-      - codecov/upload:
-          file: ./nmea0183.tests/coverage.opencover.xml
+      - run:
+          name: upload coverage reports
+          command: bash <(curl -s https://codecov.io/bash)
 
       
 
