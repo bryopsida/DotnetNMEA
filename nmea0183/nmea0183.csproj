@@ -7,9 +7,18 @@
     <PackageId>Dotnet.NMEA0183</PackageId>
     <Title>Dotnet.NMEA0183</Title>
     <Authors>Andrew Boyd</Authors>
-    <AssemblyVersion>0.0.1</AssemblyVersion>
-    <FileVersion>0.0.1</FileVersion>
-    <PackageVersion>0.0.1</PackageVersion>
+    <AssemblyVersion>0.0.1.0</AssemblyVersion>
+    <FileVersion>0.0.1.0</FileVersion>
+    <PackageVersion>0.0.1.0</PackageVersion>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>DotnetNMEA.snk</AssemblyOriginatorKeyFile>
+    <Description>Simple NMEA Parsing LIbrary for dotnet core</Description>
+    <PackageProjectUrl>https://github.com/akboyd88/DotnetNMEA</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/akboyd88/DotnetNMEA/blob/master/LICENSE</PackageLicenseUrl>
+    <RepositoryUrl>https://github.com/akboyd88/DotnetNMEA</RepositoryUrl>
+    <RepositoryType>GIT</RepositoryType>
+    <PackageTags>NMEA NMEA0183 Dotnet Core</PackageTags>
+    <PublicSign>true</PublicSign>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
