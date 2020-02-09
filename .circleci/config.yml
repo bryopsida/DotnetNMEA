@@ -1,3 +1,9 @@
+only-deploy-tags: &only-deploy-tags
+  filters:
+    tags:
+      only: /^v.*/
+    branches:
+      ignore: /.*/
 version: 2.1
 jobs: 
   build:
@@ -30,19 +36,12 @@ workflows:
   version: 2
   untagged-build:
     jobs:
-      - build:
-          filters:
-            tags:
-              only: /.*/
-  tagged-build:
-    jobs: 
       - build
+  tagged-build:
+    jobs:
+      - build: *only-deploy-tags
       - deploy:
-          filters:
-            tags:
-              only: /^v.*/
-            branches:
-              ignore: /.*/
+          <<: *only-deploy-tags
           requires:
             - build
 
