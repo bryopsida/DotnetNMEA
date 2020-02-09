@@ -36,6 +36,7 @@ workflows:
               only: /.*/
   tagged-build:
     jobs: 
+      - build
       - deploy:
           filters:
             tags:
