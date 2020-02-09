@@ -27,6 +27,10 @@ jobs:
     docker:
       - image: mcr.microsoft.com/dotnet/core/sdk:3.1-bionic
     steps:
+      - checkout
+      - run:
+          name: restore packages
+          command: dotnet restore
       - run:
           name: push to NuGet
           command: |
