@@ -3,39 +3,39 @@ workflows:
   build-n-deploy:
     jobs: 
       - build:
-        filters:
+          filters:
             tags:
               only: /.*/
-        docker:
-          - image: mcr.microsoft.com/dotnet/core/sdk:3.1-bionic
-        steps:
-          - checkout
-          - run:
-              name: restore packages
-              command: dotnet restore
-          - run:
-              name: build
-              command: dotnet build
-          - run:
-              name: run unit tests
-              command: dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
-          - run:
-              name: upload coverage reports
-              command: bash <(curl -s https://codecov.io/bash)
+          docker:
+            - image: mcr.microsoft.com/dotnet/core/sdk:3.1-bionic
+          steps:
+            - checkout
+            - run:
+                name: restore packages
+                command: dotnet restore
+            - run:
+                name: build
+                command: dotnet build
+            - run:
+                name: run unit tests
+                command: dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+            - run:
+                name: upload coverage reports
+                command: bash <(curl -s https://codecov.io/bash)
       - deploy:
-        requires:
-          - build
-        filters:
-          tags:
-            only: /^v.*/
-          branches:
-            ignore: /.*/
-        steps:
-          - run:
-              name: push to NuGet
-              command: |
-                dotnet pack --output nuget-build --configuration Release
-                dotnet nuget push --source "${NUGET_FEED_URL}" --api-key="${NUGET_KEY}" nuget-build/Dotnet.NMEA0183*.nupkg
+          requires:
+            - build
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
+          steps:
+            - run:
+                name: push to NuGet
+                command: |
+                  dotnet pack --output nuget-build --configuration Release
+                  dotnet nuget push --source "${NUGET_FEED_URL}" --api-key="${NUGET_KEY}" nuget-build/Dotnet.NMEA0183*.nupkg
 
       
 
