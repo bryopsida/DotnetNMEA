@@ -1,4 +1,6 @@
 version: 2.1
+orbs:
+  codecov: codecov/codecov@1.0.2
 jobs:
   build:
     docker:
@@ -13,7 +15,9 @@ jobs:
           command: dotnet build
       - run:
           name: run unit tests
-          command: dotnet test
+          command: dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+      - codecov/upload:
+          file: ./nmea0183.tests/coverage.opencover.xml
 
       
 
