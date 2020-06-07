@@ -35,7 +35,7 @@ jobs:
           name: push to NuGet
           command: |
             dotnet pack --output nuget-build --configuration Release
-            dotnet nuget push --source "${NUGET_FEED_URL}" --api-key="${NUGET_KEY}" nuget-build/Dotnet.NMEA0183*.nupkg
+            dotnet nuget push --source "${NUGET_FEED_URL}" --api-key="${NUGET_KEY}" nuget-build/Boyd.NMEA*.nupkg
 workflows:
   version: 2
   untagged-build:
