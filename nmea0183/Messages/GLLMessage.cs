@@ -46,8 +46,7 @@ namespace DotnetNMEA.NMEA0183.Messages
         public GLLMessage(
             ReadOnlySpan<char> message,
             MessageType messageType, 
-            SpeakerType sType, 
-            ILoggerFactory loggerFactory): base(sType, messageType, loggerFactory)
+            SpeakerType sType): base(sType, messageType)
         {
             
         }

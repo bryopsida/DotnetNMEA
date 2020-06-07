@@ -1,8 +1,7 @@
 ﻿using System;
-using System.IO;
+using System.Text;
 using DotnetNMEA.NMEA0183.Messages;
 using DotnetNMEA.NMEA0183.Types;
-using Microsoft.Extensions.Logging;
 
 namespace DotnetNMEA.NMEA0183
 {
@@ -11,18 +10,11 @@ namespace DotnetNMEA.NMEA0183
     /// </summary>
     public class NMEA0183Parser : INMEA0183Parser
     {
-        private ILogger _logger;
-        private ILoggerFactory _loggerFactory;
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="factory">logger factory used to create logger instances for this class and any instances
-        /// created beneath this instance
-        /// </param>
-        public NMEA0183Parser(ILoggerFactory factory)
+        public NMEA0183Parser()
         {
-            _logger = factory.CreateLogger<NMEA0183Parser>();
-            _loggerFactory = factory;
         }
         
         /// <summary>
@@ -56,18 +48,40 @@ namespace DotnetNMEA.NMEA0183
             return message;
         }
 
+                
+        /// <summary>
+        /// Parse the NMEA0183 sentence into a NMEA message object
+        /// </summary>
+        /// <param name="messageString">the complete NMEA0183 sentence</param>
+        /// <returns>A NMEA message object with the data extracted so it's in a readily usable format</returns>
+        /// <exception cref="ArgumentException">Thrown if a bad sentence is passed in</exception>
+        public Nmea0183Message Parse(string messageString)
+        {
+            return Parse(new ReadOnlySpan<char>(messageString.ToCharArray()));
+        }
+        /// <summary>
+        /// Parse the NMEA0183 sentence into a NMEA message object
+        /// </summary>
+        /// <param name="messageBytes">the complete NMEA0183 sentence in raw bytes, expects UTF8 encoding</param>
+        /// <returns>A NMEA message object with the data extracted so it's in a readily usable format</returns>
+        /// <exception cref="ArgumentException">Thrown if a bad sentence is passed in</exception>
+        public Nmea0183Message Parse(byte[] messageBytes)
+        {
+            return Parse(new ReadOnlySpan<char>(Encoding.UTF8.GetChars(messageBytes)));
+        }
+
         private Nmea0183Message ParseNmeaMessage(MessageType messageType, SpeakerType sType, ReadOnlySpan<char> messageSlice)
         {
             switch (messageType)
             {
                 case MessageType.GGA:
-                    return new GGAMessage(messageSlice, messageType, sType, _loggerFactory);
+                    return new GGAMessage(messageSlice, messageType, sType);
                 case MessageType.GSA:
-                    return new GSAMessage(messageSlice, messageType, sType, _loggerFactory);
+                    return new GSAMessage(messageSlice, messageType, sType);
                 case MessageType.RMC:
-                    return new RMCMessage(messageSlice, messageType, sType, _loggerFactory);
+                    return new RMCMessage(messageSlice, messageType, sType);
                 case MessageType.GSV:
-                    return new GSVMessage(messageSlice, messageType, sType, _loggerFactory);
+                    return new GSVMessage(messageSlice, messageType, sType);
                 default:
                     throw new NotSupportedException($"Message type {messageType} not supported");
             }

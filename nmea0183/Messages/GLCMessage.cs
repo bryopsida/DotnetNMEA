@@ -83,12 +83,10 @@ namespace DotnetNMEA.NMEA0183.Messages
         /// <param name="message"></param>
         /// <param name="messageType"></param>
         /// <param name="sType"></param>
-        /// <param name="loggerFactory"></param>
         public GLCMessage(
             ReadOnlySpan<char> message,
             MessageType messageType, 
-            SpeakerType sType, 
-            ILoggerFactory loggerFactory): base(sType, messageType, loggerFactory)
+            SpeakerType sType): base(sType, messageType)
         {
             
         }

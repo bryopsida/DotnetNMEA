@@ -83,7 +83,7 @@ namespace DotnetNMEA
         public DotnetNMEACLI(SerialSettings settings, ILoggerFactory loggerFactory)
         {
             _logger = loggerFactory.CreateLogger<DotnetNMEACLI>();
-            _lineParser = new NMEA0183Parser(loggerFactory);
+            _lineParser = new NMEA0183Parser();
             _lineEmitter = new SerialLineReader(settings);
             _lineEmitter.OnLine += (line) =>
             {

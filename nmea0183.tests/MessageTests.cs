@@ -12,8 +12,7 @@ namespace DotnetNMEA.NMEA0183.tests
         [Fact]
         public void CanParseRMCMessage()
         {
-            var moqLogger = new Mock<ILoggerFactory>();
-            INMEA0183Parser parser = new NMEA0183Parser(moqLogger.Object);
+            INMEA0183Parser parser = new NMEA0183Parser();
 
             ReadOnlySpan<char> firstMessage = 
                 "$GPRMC,215236.000,A,2006.5938,N,09844.6060,W,0.38,343.75,150919,,,A*70";
@@ -42,8 +41,7 @@ namespace DotnetNMEA.NMEA0183.tests
         [Fact]
         public void CanParseGGAMessage()
         {
-            var moqLogger = new Mock<ILoggerFactory>();
-            INMEA0183Parser parser = new NMEA0183Parser(moqLogger.Object);
+            INMEA0183Parser parser = new NMEA0183Parser();
 
             ReadOnlySpan<char> firstMessage = 
                 "$GPGGA,215236.000,1231.2006,S,07712.7020,E,1,04,3.8,271.3,M,-22.0,M,,0000*6F";
@@ -74,8 +72,7 @@ namespace DotnetNMEA.NMEA0183.tests
         [Fact]
         public void CanParseGSAMessage()
         {
-            var moqLogger = new Mock<ILoggerFactory>();
-            INMEA0183Parser parser = new NMEA0183Parser(moqLogger.Object);
+            INMEA0183Parser parser = new NMEA0183Parser();
 
             ReadOnlySpan<char> firstMessage = 
                 "$GPGSA,M,3,21,32,24,15,,,,,,,,,4.9,3.8,3.2*39";
@@ -105,8 +102,7 @@ namespace DotnetNMEA.NMEA0183.tests
         [Fact]
         public void CanParseGSVMessage()
         {
-            var moqLogger = new Mock<ILoggerFactory>();
-            INMEA0183Parser parser = new NMEA0183Parser(moqLogger.Object);
+            INMEA0183Parser parser = new NMEA0183Parser();
 
             ReadOnlySpan<char> firstMessage = 
                 "$GPGSV,3,1,12,21,68,147,34,32,49,241,23,24,37,073,38,15,13,047,37*76";

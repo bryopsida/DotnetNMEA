@@ -19,7 +19,7 @@
 
 ```c#
 
-INMEA0183Parser parser = new NMEA0183Parser(loggerFactory);
+INMEA0183Parser parser = new NMEA0183Parser();
 
 ReadOnlySpan<char> exampleMessage = 
     "$GPRMC,215236.000,A,2006.5938,N,09844.6060,W,0.38,343.75,150919,,,A*70";

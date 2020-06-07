@@ -89,12 +89,10 @@ namespace DotnetNMEA.NMEA0183.Messages
         /// <param name="messageType">Nmea message type
         /// </param>
         /// <param name="sType">The speaker type</param>
-        /// <param name="loggerFactory">Logger factory to create a logger instance from</param>
         public GGAMessage(
             ReadOnlySpan<char> message,
             MessageType messageType, 
-            SpeakerType sType, 
-            ILoggerFactory loggerFactory): base(sType, messageType, loggerFactory)
+            SpeakerType sType): base(sType, messageType)
         {
             ExpectedFieldCount = 14;
             ExtractFieldValues(message);

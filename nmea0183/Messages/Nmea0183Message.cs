@@ -27,24 +27,17 @@ namespace DotnetNMEA.NMEA0183.Messages
         /// How many fields are expected to be in the nmea sentence, this is set in child classes
         /// </summary>
         protected int ExpectedFieldCount;
-        /// <summary>
-        /// Logger used to log information to a configurable destination set when the logger is created
-        /// </summary>
-        protected ILogger _logger;
-        
 
         /// <summary>
         /// Set the message type, speaker type, and create the logger instance
         /// </summary>
         /// <param name="sType">Speaker</param>
         /// <param name="mType">Message Type</param>
-        /// <param name="factory">Logger Factory</param>
-        protected Nmea0183Message(SpeakerType sType, MessageType mType, ILoggerFactory factory)
+        protected Nmea0183Message(SpeakerType sType, MessageType mType)
         {
             Type = mType;
             Speaker = sType;
             ExpectedFieldCount = 0;
-            _logger = factory.CreateLogger<Nmea0183Message>();
         }
 
         /// <summary>
