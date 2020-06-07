@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NMEA0183", "nmea0183\nmea0183.csproj", "{CEC98488-C633-4BD0-A5BD-8ED72515EDB3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Boyd.NMEA", "Boyd.NMEA\Boyd.NMEA.csproj", "{CEC98488-C633-4BD0-A5BD-8ED72515EDB3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NMEA0183.tests", "nmea0183.tests\nmea0183.tests.csproj", "{972B4F54-2DE7-43F5-98FD-BCBFCB962A3B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Boyd.NMEA.Tests", "Boyd.NMEA.Tests\Boyd.NMEA.Tests.csproj", "{972B4F54-2DE7-43F5-98FD-BCBFCB962A3B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotnetNMEA", "dotnetNmea\dotnetNmea.csproj", "{1D12EF52-A1C2-49A1-827C-7612683B54B5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Boyd.NMEA.CLI", "Boyd.NMEA.CLI\Boyd.NMEA.CLI.csproj", "{1D12EF52-A1C2-49A1-827C-7612683B54B5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotnetNMEA.tests", "dotnetNmea.tests\dotnetNmea.tests.csproj", "{977E9A9D-FB05-4A55-B08D-FB903FECEDAD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Boyd.NMEA.CLI.Tests", "Boyd.NMEA.CLI.Tests\Boyd.NMEA.CLI.Tests.csproj", "{977E9A9D-FB05-4A55-B08D-FB903FECEDAD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
