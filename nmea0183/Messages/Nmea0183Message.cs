@@ -2,7 +2,6 @@
 using System.Globalization;
 using DotnetNMEA.NMEA0183.Types;
 using MessagePack;
-using Microsoft.Extensions.Logging;
 
 namespace DotnetNMEA.NMEA0183.Messages
 {

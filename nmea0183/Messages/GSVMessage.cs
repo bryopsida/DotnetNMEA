@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using DotnetNMEA.NMEA0183.Types;
 using MessagePack;
-using Microsoft.Extensions.Logging;
 
 namespace DotnetNMEA.NMEA0183.Messages
 {

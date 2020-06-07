@@ -1,8 +1,6 @@
 using System;
 using DotnetNMEA.NMEA0183.Messages;
 using DotnetNMEA.NMEA0183.Types;
-using Microsoft.Extensions.Logging;
-using Moq;
 using Xunit;
 
 namespace DotnetNMEA.NMEA0183.tests
