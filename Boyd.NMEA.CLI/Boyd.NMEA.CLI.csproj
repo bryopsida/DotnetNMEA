@@ -23,9 +23,9 @@
     <ItemGroup>
       <PackageReference Include="CommandLineParser" Version="2.8.0" />
       <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="5.0.0" />
-      <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.4" />
+      <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="5.0.0" />
       <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.4" />
-      <PackageReference Include="NLog" Version="4.7.10" />
+      <PackageReference Include="NLog" Version="4.7.11" />
       <PackageReference Include="NLog.Extensions.Logging" Version="1.6.4" />
       <PackageReference Include="System.IO.Ports" Version="5.0.0" />
     </ItemGroup>
