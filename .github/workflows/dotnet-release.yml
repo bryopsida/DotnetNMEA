@@ -18,6 +18,6 @@ jobs:
     - name: Build
       run: dotnet publish --configuration Release
     - name: Pack
-      run: dotnet pack Boyd.NMEA
+      run: dotnet pack Boyd.NMEA --configuration Release
     - name: Push
       run: dotnet nuget push Boyd.NMEA --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
