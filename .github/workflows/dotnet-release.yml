@@ -2,7 +2,7 @@ name: .NET Release
 
 on:
   release:
-
+    types: [published]
 jobs:
   release:
     environment: nuget
