@@ -4,7 +4,7 @@ on:
   release:
 
 jobs:
-  build:
+  release:
     environment: nuget
     runs-on: ubuntu-latest
     steps:
@@ -18,6 +18,6 @@ jobs:
     - name: Build
       run: dotnet build --no-restore
     - name: Pack
-      run: dotnet pack
+      run: dotnet pack Boyd.NMEA
     - name: Push
       run: dotnet nuget push Boyd.NMEA --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
