@@ -357,3 +357,5 @@ MigrationBackup/
 /nmea0183/obj/
 /dotnetNmea/obj/
 /dotnetNmea.tests/obj/
+
+.dccache
