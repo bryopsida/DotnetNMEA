@@ -1,25 +1,21 @@
 ﻿using System;
 using System.Globalization;
 using Boyd.NMEA.NMEA.Types;
-using MessagePack;
 
 namespace Boyd.NMEA.NMEA.Messages
 {
     /// <summary>
     /// Base NMEA0183 Message
     /// </summary>
-    [MessagePackObject]
     public abstract class Nmea0183Message
     {
         /// <summary>
         /// Type of message
         /// </summary>
-        [Key(0)]
         public MessageType Type;
         /// <summary>
         /// Speaker, what system sent the message
         /// </summary>
-        [Key(1)]
         public SpeakerType Speaker;
 
         /// <summary>

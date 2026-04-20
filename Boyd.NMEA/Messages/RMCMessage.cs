@@ -1,64 +1,52 @@
 ﻿using System;
 using Boyd.NMEA.NMEA.Types;
-using MessagePack;
 
 namespace Boyd.NMEA.NMEA.Messages
 {
     /// <summary>
     /// 
     /// </summary>
-    [MessagePackObject]
     public class RMCMessage : Nmea0183Message
     {
         /// <summary>
         /// 
         /// </summary>
-        [Key(2)] 
         public TimeSpan? UTCTime;
         /// <summary>
         /// 
         /// </summary>
-        [Key(3)] 
         public ActiveStatus ActiveStatus;
         /// <summary>
         /// 
         /// </summary>
-        [Key(4)] 
         public decimal? Latitude;
         /// <summary>
         /// 
         /// </summary>
-        [Key(5)] 
         public NorthSouth NorthSouth;
         /// <summary>
         /// 
         /// </summary>
-        [Key(6)] 
         public decimal? Longitude;
         /// <summary>
         /// 
         /// </summary>
-        [Key(7)] 
         public EastWest EastWest;
         /// <summary>
         /// 
         /// </summary>
-        [Key(8)] 
         public decimal? Knots;
         /// <summary>
         /// 
         /// </summary>
-        [Key(9)] 
         public decimal? TrackAngle;
         /// <summary>
         /// 
         /// </summary>
-        [Key(10)] 
         public DateTime? Date;
         /// <summary>
         /// 
         /// </summary>
-        [Key(11)] 
         public decimal? MagneticVariation;
 
         /// <inheritdoc />
