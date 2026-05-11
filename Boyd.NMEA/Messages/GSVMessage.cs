@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Boyd.NMEA.NMEA.Types;
-using MessagePack;
 
 namespace Boyd.NMEA.NMEA.Messages
 {
@@ -9,28 +8,23 @@ namespace Boyd.NMEA.NMEA.Messages
     /// <summary>
     /// 
     /// </summary>
-    [MessagePackObject]
     public class SatInfo
     {
         /// <summary>
         /// 
         /// </summary>
-        [Key(0)] 
         public int? SatNum;
         /// <summary>
         /// 
         /// </summary>
-        [Key(1)] 
         public int? ElevationDegrees;
         /// <summary>
         /// 
         /// </summary>
-        [Key(2)] 
         public int? AzimuthDegreesToTrue;
         /// <summary>
         /// 
         /// </summary>
-        [Key(3)] 
         public int? SignalNoiseDB;
     }
     
@@ -42,22 +36,18 @@ namespace Boyd.NMEA.NMEA.Messages
         /// <summary>
         /// 
         /// </summary>
-        [Key(2)] 
         public int? TotalMessages;
         /// <summary>
         /// 
         /// </summary>
-        [Key(3)]
         public int? MessageNumber;
         /// <summary>
         /// 
         /// </summary>
-        [Key(4)]
         public int? SatsInView;
         /// <summary>
         /// 
         /// </summary>
-        [Key(5)]
         public IList<SatInfo> SatInfoCollection;
 
         /// <inheritdoc />
