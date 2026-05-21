@@ -34,7 +34,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MessagePack" Version="2.5.198" />
+    <PackageReference Include="MessagePack" Version="2.5.205" />
     <PackageReference Include="System.Memory" Version="4.6.3" />
   </ItemGroup>
 
